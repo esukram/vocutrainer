@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "vocutrainer",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authvocutrainer938481d6",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

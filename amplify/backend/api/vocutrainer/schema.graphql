@@ -1,0 +1,12 @@
+type Library @model {
+  id: ID!
+  name: String!
+  books: [Book] @connection(keyName: "byLibrary", fields: ["id"])
+}
+
+type Book @model @key(name: "byLibrary", fields: ["libraryId"]) {
+  id: ID!
+  title: String!
+  libraryId: ID!
+  library: Library @connection(fields: ["libraryId"])
+}
