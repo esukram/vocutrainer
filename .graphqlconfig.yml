@@ -11,7 +11,7 @@ projects:
         generatedFileName: src/API.ts
         docsFilePath: src/graphql
         region: eu-central-1
-        apiId: null
+        apiId: ppbdnc4asrfn7alphz3wkawgqu
         maxDepth: 2
 extensions:
   amplify:
