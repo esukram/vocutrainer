@@ -1,0 +1,23 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-vocutrainer-dev-133434-authRole",
+            "UnauthRoleArn": "arn:aws:iam::188727357339:role/amplify-vocutrainer-dev-133434-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::188727357339:role/amplify-vocutrainer-dev-133434-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "amplify-vocutrainer-dev-133434-deployment",
+            "UnauthRoleName": "amplify-vocutrainer-dev-133434-unauthRole",
+            "StackName": "amplify-vocutrainer-dev-133434",
+            "StackId": "arn:aws:cloudformation:eu-central-1:188727357339:stack/amplify-vocutrainer-dev-133434/631474f0-ab3a-11eb-acb9-02f152ce404c",
+            "AmplifyAppId": "d3r45niidob204"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d3r45niidob204",
+                    "type": "cicd"
+                }
+            }
+        }
+    }
+}
