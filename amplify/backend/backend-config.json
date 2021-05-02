@@ -2,8 +2,17 @@
   "hosting": {
     "amplifyhosting": {
       "service": "amplifyhosting",
-      "type": "cicd",
-      "lastPushTimeStamp": "2021-05-02T11:38:33.670Z"
+      "type": "cicd"
     }
-  }
+  },
+  "function": {},
+  "auth": {
+    "vocutrainer938481d6": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "api": {}
 }
