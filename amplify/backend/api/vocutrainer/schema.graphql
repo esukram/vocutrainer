@@ -10,3 +10,8 @@ type Book @model @key(name: "byLibrary", fields: ["libraryId"]) {
   libraryId: ID!
   library: Library @connection(fields: ["libraryId"])
 }
+
+type Query {
+  getLibraryById(libraryId: String!): Library
+  listLibraries: [Library]
+}

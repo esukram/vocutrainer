@@ -277,6 +277,38 @@ export type DeleteBookMutation = {
   } | null,
 };
 
+export type GetLibraryByIdQueryVariables = {
+  libraryId?: string,
+};
+
+export type GetLibraryByIdQuery = {
+  getLibraryById?:  {
+    __typename: "Library",
+    id: string,
+    name: string,
+    books?:  {
+      __typename: "ModelBookConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListLibrariesQuery = {
+  listLibraries?:  Array< {
+    __typename: "Library",
+    id: string,
+    name: string,
+    books?:  {
+      __typename: "ModelBookConnection",
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null > | null,
+};
+
 export type GetLibraryQueryVariables = {
   id?: string,
 };
