@@ -8,16 +8,21 @@ import {
  } from "@aws-amplify/ui-components";
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 
-import { API, Auth, graphqlOperation } from "aws-amplify";
+// import { API, graphqlOperation } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import * as queries from './graphql/queries';
 
 import callGraphQL from './models/graphql-api';
 import { mapListLibraryQuery } from './models/library';
+import { Library, ListLibrarysQuery } from './API';
+// import { CreateLibraryInput } from './API';
+// import { createLibrary } from './graphql/mutations';
+
+// import Header from './components/Header';
+import { Header } from './components';
 
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
-import { CreateLibraryInput, Library, ListLibrarysQuery } from './API';
-import { createLibrary } from './graphql/mutations';
 Amplify.configure(awsExports);
 
 const App = () => {
@@ -62,10 +67,7 @@ const App = () => {
     getLibrary();
   }, [authState, user]);
 
-  const signOut = async () => {
-    await Auth.signOut();
-  }
-
+  /*
   useEffect(() => {
     // @ts-ignore: I do not care
     async function addLibrary() {
@@ -83,6 +85,7 @@ const App = () => {
 
     //addLibrary();
   }, []);
+  */
 
   const Books = () => {
     if (books.length < 1) return <p>No books available</p>
@@ -100,11 +103,8 @@ const App = () => {
 
   return authState === AuthState.SignedIn && user ? (
     <div className="App">
-      <header>
-        <div>Hello {user.username}</div>
-        <div><button onClick={signOut}>Sign Out</button></div>
-      </header>
-      <div>Hello World!</div>
+      <Header username={user.username!}></Header>
+
       <div>
         <h2>Books</h2>
         <Books />
