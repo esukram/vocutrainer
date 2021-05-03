@@ -6,15 +6,10 @@ import {
   AuthState,
   CognitoUserInterface
  } from "@aws-amplify/ui-components";
-import {
-  AmplifyGreetings,
-  AmplifyAuthenticator
-} from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 
 import { API, Auth, graphqlOperation } from "aws-amplify";
-import GraphQLAPI, { GraphQLResult, GRAPHQL_AUTH_MODE } from '@aws-amplify/api-graphql';
 import * as queries from './graphql/queries';
-import * as mutations from './graphql/mutations';
 
 import callGraphQL from './models/graphql-api';
 import { mapListLibraryQuery } from './models/library';
@@ -31,11 +26,45 @@ const App = () => {
   const [books, setBooks] = useState<Library[]>([]);
 
   useEffect(() => {
+
+    // load data in case of page reload
+    if (authState === undefined) {
+      Auth.currentAuthenticatedUser().then(authData => {
+        setAuthState(AuthState.SignedIn);
+        setUser(authData);
+      }).catch(reason => {
+        // user not logged in
+      });
+    }
+
+    // returns Hub unregister function
+    // https://github.com/aws-amplify/amplify-js/blob/master/packages/amplify-ui-components/src/common/helpers.ts#L58,L82
     return onAuthUIStateChange((nextAuthState, authData) => {
+      if (nextAuthState === authState) return;
+
       setAuthState(nextAuthState);
       setUser(authData as CognitoUserInterface);
     });
-  }, []);
+  }, [authState]);
+
+  useEffect(() => {
+    async function getLibrary() {
+      if (authState !== AuthState.SignedIn || !user) return;
+
+      try {
+        const todoData = await callGraphQL<ListLibrarysQuery>(queries.listLibrarys);
+        setBooks(mapListLibraryQuery(todoData));
+      } catch (error) {
+        console.error("Error fetching todos", error);
+      }
+    }
+
+    getLibrary();
+  }, [authState, user]);
+
+  const signOut = async () => {
+    await Auth.signOut();
+  }
 
   useEffect(() => {
     // @ts-ignore: I do not care
@@ -55,34 +84,13 @@ const App = () => {
     //addLibrary();
   }, []);
 
-  useEffect(() => {
-    async function getLibrary() {
-      try {
-        const todoData = await callGraphQL<ListLibrarysQuery>(queries.listLibrarys);
-        const todos = mapListLibraryQuery(todoData);
-        console.log('Finished loading todos!');
-        console.log(todos);
-        setBooks(todos);
-      } catch (error) {
-        console.error("Error fetching todos", error);
-      }
-    }
-    getLibrary();
-  }, []);
-
-  const signOut = async () => {
-    await Auth.signOut();
-    console.log('Sign out finished')!
-  }
-
-  const getBooks = () => {
+  const Books = () => {
     if (books.length < 1) return <p>No books available</p>
 
     return(
       <ul>
         {
           books.map((book, index) => {
-            console.log(book);
             return <li key={ index }>{book.name} ({book.id})</li>;
           })
         }
@@ -99,7 +107,7 @@ const App = () => {
       <div>Hello World!</div>
       <div>
         <h2>Books</h2>
-        { getBooks() }
+        <Books />
       </div>
     </div>
   ) : (
