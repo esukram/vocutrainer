@@ -1,6 +1,10 @@
 import './App.css';
 
 import { useState, useEffect } from 'react';
+import {
+  Switch,
+  Route,useParams
+} from 'react-router-dom';
 
 import {
   onAuthUIStateChange,
@@ -65,7 +69,10 @@ const App = () => {
   return authState === AuthState.SignedIn && user ? (
     <div className="App">
       <Header username={user.username!}></Header>
-      <Libraries />
+      <Switch>
+        <Route exact path="/" component={Libraries} />
+        <Route path="/library/:id" children={<Foo />} />
+      </Switch>
     </div>
   ) : (
     <AmplifyAuthenticator />
@@ -73,3 +80,16 @@ const App = () => {
 };
 
 export default App;
+
+interface FooParam {
+  id: string
+}
+function Foo() {
+  const { id } = useParams<FooParam>();
+
+  return (
+    <div>
+      <h3>ID: {id}</h3>
+    </div>
+  );
+}

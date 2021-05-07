@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Library, listLibraries } from '../graphql';
 
@@ -25,7 +26,14 @@ export const Libraries = () => {
           (!libraries || libraries.length === 0)
           ? <p>No libraries available.</p>
           : libraries.map((library, _) => {
-            return <li key={ library.id }>{library.name} ({library.id})</li>;
+            const location = `/library/${library.id}`;
+            return (
+              <li key={ library.id }>
+                <Link to={location} >
+                  {library.name}
+                </Link>
+              </li>
+            );
           })
         }
       </ul>
