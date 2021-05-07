@@ -1,24 +1,16 @@
 import './App.css';
 
 import { useState, useEffect } from 'react';
+
 import {
   onAuthUIStateChange,
   AuthState,
   CognitoUserInterface
  } from "@aws-amplify/ui-components";
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
-
-// import { API, graphqlOperation } from "aws-amplify";
 import { Auth } from "aws-amplify";
-import * as queries from './graphql/queries';
 
-import callGraphQL from './models/graphql-api';
-import { mapListLibraryQuery } from './models/library';
-import { Library, ListLibrarysQuery } from './API';
-// import { CreateLibraryInput } from './API';
-// import { createLibrary } from './graphql/mutations';
-
-// import Header from './components/Header';
+import { Library, listLibraries } from './graphql';
 import { Header } from './components';
 
 import Amplify from "aws-amplify";
@@ -57,8 +49,7 @@ const App = () => {
       if (authState !== AuthState.SignedIn || !user) return;
 
       try {
-        const todoData = await callGraphQL<ListLibrarysQuery>(queries.listLibrarys);
-        setBooks(mapListLibraryQuery(todoData));
+        setBooks( await listLibraries() );
       } catch (error) {
         console.error("Error fetching todos", error);
       }

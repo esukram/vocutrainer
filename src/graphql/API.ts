@@ -58,20 +58,22 @@ export type Library = {
   __typename: "Library",
   id?: string,
   name?: string,
-  books?: ModelBookConnection,
+  dictionaries?: ModelDictionaryConnection,
   createdAt?: string,
   updatedAt?: string,
+  userId?: string | null,
 };
 
-export type ModelBookConnection = {
-  __typename: "ModelBookConnection",
-  items?:  Array<Book | null > | null,
+export type ModelDictionaryConnection = {
+  __typename: "ModelDictionaryConnection",
+  items?:  Array<Dictionary | null > | null,
   nextToken?: string | null,
 };
 
-export type Book = {
-  __typename: "Book",
+export type Dictionary = {
+  __typename: "Dictionary",
   id?: string,
+  userId?: string,
   title?: string,
   libraryId?: string,
   library?: Library,
@@ -88,18 +90,19 @@ export type DeleteLibraryInput = {
   id?: string | null,
 };
 
-export type CreateBookInput = {
+export type CreateDictionaryInput = {
   id?: string | null,
+  userId: string,
   title: string,
   libraryId: string,
 };
 
-export type ModelBookConditionInput = {
+export type ModelDictionaryConditionInput = {
   title?: ModelStringInput | null,
   libraryId?: ModelIDInput | null,
-  and?: Array< ModelBookConditionInput | null > | null,
-  or?: Array< ModelBookConditionInput | null > | null,
-  not?: ModelBookConditionInput | null,
+  and?: Array< ModelDictionaryConditionInput | null > | null,
+  or?: Array< ModelDictionaryConditionInput | null > | null,
+  not?: ModelDictionaryConditionInput | null,
 };
 
 export type ModelIDInput = {
@@ -118,13 +121,14 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateBookInput = {
+export type UpdateDictionaryInput = {
   id: string,
+  userId?: string | null,
   title?: string | null,
   libraryId?: string | null,
 };
 
-export type DeleteBookInput = {
+export type DeleteDictionaryInput = {
   id?: string | null,
 };
 
@@ -142,13 +146,14 @@ export type ModelLibraryConnection = {
   nextToken?: string | null,
 };
 
-export type ModelBookFilterInput = {
+export type ModelDictionaryFilterInput = {
   id?: ModelIDInput | null,
+  userId?: ModelStringInput | null,
   title?: ModelStringInput | null,
   libraryId?: ModelIDInput | null,
-  and?: Array< ModelBookFilterInput | null > | null,
-  or?: Array< ModelBookFilterInput | null > | null,
-  not?: ModelBookFilterInput | null,
+  and?: Array< ModelDictionaryFilterInput | null > | null,
+  or?: Array< ModelDictionaryFilterInput | null > | null,
+  not?: ModelDictionaryFilterInput | null,
 };
 
 export type CreateLibraryMutationVariables = {
@@ -161,12 +166,13 @@ export type CreateLibraryMutation = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
 };
 
@@ -180,12 +186,13 @@ export type UpdateLibraryMutation = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
 };
 
@@ -199,24 +206,26 @@ export type DeleteLibraryMutation = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
 };
 
-export type CreateBookMutationVariables = {
-  input?: CreateBookInput,
-  condition?: ModelBookConditionInput | null,
+export type CreateDictionaryMutationVariables = {
+  input?: CreateDictionaryInput,
+  condition?: ModelDictionaryConditionInput | null,
 };
 
-export type CreateBookMutation = {
-  createBook?:  {
-    __typename: "Book",
+export type CreateDictionaryMutation = {
+  createDictionary?:  {
+    __typename: "Dictionary",
     id: string,
+    userId: string,
     title: string,
     libraryId: string,
     library?:  {
@@ -225,21 +234,23 @@ export type CreateBookMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateBookMutationVariables = {
-  input?: UpdateBookInput,
-  condition?: ModelBookConditionInput | null,
+export type UpdateDictionaryMutationVariables = {
+  input?: UpdateDictionaryInput,
+  condition?: ModelDictionaryConditionInput | null,
 };
 
-export type UpdateBookMutation = {
-  updateBook?:  {
-    __typename: "Book",
+export type UpdateDictionaryMutation = {
+  updateDictionary?:  {
+    __typename: "Dictionary",
     id: string,
+    userId: string,
     title: string,
     libraryId: string,
     library?:  {
@@ -248,21 +259,23 @@ export type UpdateBookMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type DeleteBookMutationVariables = {
-  input?: DeleteBookInput,
-  condition?: ModelBookConditionInput | null,
+export type DeleteDictionaryMutationVariables = {
+  input?: DeleteDictionaryInput,
+  condition?: ModelDictionaryConditionInput | null,
 };
 
-export type DeleteBookMutation = {
-  deleteBook?:  {
-    __typename: "Book",
+export type DeleteDictionaryMutation = {
+  deleteDictionary?:  {
+    __typename: "Dictionary",
     id: string,
+    userId: string,
     title: string,
     libraryId: string,
     library?:  {
@@ -271,6 +284,7 @@ export type DeleteBookMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -286,12 +300,13 @@ export type GetLibraryByIdQuery = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
 };
 
@@ -300,9 +315,54 @@ export type ListLibrariesQuery = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userId?: string | null,
+  } | null > | null,
+};
+
+export type GetDictionaryByIdQueryVariables = {
+  dictionaryId?: string,
+};
+
+export type GetDictionaryByIdQuery = {
+  getDictionaryById?:  {
+    __typename: "Dictionary",
+    id: string,
+    userId: string,
+    title: string,
+    libraryId: string,
+    library?:  {
+      __typename: "Library",
+      id: string,
+      name: string,
+      createdAt: string,
+      updatedAt: string,
+      userId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListDictionariesQuery = {
+  listDictionaries?:  Array< {
+    __typename: "Dictionary",
+    id: string,
+    userId: string,
+    title: string,
+    libraryId: string,
+    library?:  {
+      __typename: "Library",
+      id: string,
+      name: string,
+      createdAt: string,
+      updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -318,12 +378,13 @@ export type GetLibraryQuery = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
 };
 
@@ -342,19 +403,21 @@ export type ListLibrarysQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
 };
 
-export type GetBookQueryVariables = {
+export type GetDictionaryQueryVariables = {
   id?: string,
 };
 
-export type GetBookQuery = {
-  getBook?:  {
-    __typename: "Book",
+export type GetDictionaryQuery = {
+  getDictionary?:  {
+    __typename: "Dictionary",
     id: string,
+    userId: string,
     title: string,
     libraryId: string,
     library?:  {
@@ -363,24 +426,26 @@ export type GetBookQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListBooksQueryVariables = {
-  filter?: ModelBookFilterInput | null,
+export type ListDictionarysQueryVariables = {
+  filter?: ModelDictionaryFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListBooksQuery = {
-  listBooks?:  {
-    __typename: "ModelBookConnection",
+export type ListDictionarysQuery = {
+  listDictionarys?:  {
+    __typename: "ModelDictionaryConnection",
     items?:  Array< {
-      __typename: "Book",
+      __typename: "Dictionary",
       id: string,
+      userId: string,
       title: string,
       libraryId: string,
       createdAt: string,
@@ -390,18 +455,27 @@ export type ListBooksQuery = {
   } | null,
 };
 
+export type OnCreateLibrarySubscriptionVariables = {
+  userId?: string | null,
+};
+
 export type OnCreateLibrarySubscription = {
   onCreateLibrary?:  {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
+};
+
+export type OnUpdateLibrarySubscriptionVariables = {
+  userId?: string | null,
 };
 
 export type OnUpdateLibrarySubscription = {
@@ -409,13 +483,18 @@ export type OnUpdateLibrarySubscription = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
+};
+
+export type OnDeleteLibrarySubscriptionVariables = {
+  userId?: string | null,
 };
 
 export type OnDeleteLibrarySubscription = {
@@ -423,19 +502,25 @@ export type OnDeleteLibrarySubscription = {
     __typename: "Library",
     id: string,
     name: string,
-    books?:  {
-      __typename: "ModelBookConnection",
+    dictionaries?:  {
+      __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    userId?: string | null,
   } | null,
 };
 
-export type OnCreateBookSubscription = {
-  onCreateBook?:  {
-    __typename: "Book",
+export type OnCreateDictionarySubscriptionVariables = {
+  userId?: string | null,
+};
+
+export type OnCreateDictionarySubscription = {
+  onCreateDictionary?:  {
+    __typename: "Dictionary",
     id: string,
+    userId: string,
     title: string,
     libraryId: string,
     library?:  {
@@ -444,16 +529,22 @@ export type OnCreateBookSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateBookSubscription = {
-  onUpdateBook?:  {
-    __typename: "Book",
+export type OnUpdateDictionarySubscriptionVariables = {
+  userId?: string | null,
+};
+
+export type OnUpdateDictionarySubscription = {
+  onUpdateDictionary?:  {
+    __typename: "Dictionary",
     id: string,
+    userId: string,
     title: string,
     libraryId: string,
     library?:  {
@@ -462,16 +553,22 @@ export type OnUpdateBookSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteBookSubscription = {
-  onDeleteBook?:  {
-    __typename: "Book",
+export type OnDeleteDictionarySubscriptionVariables = {
+  userId?: string | null,
+};
+
+export type OnDeleteDictionarySubscription = {
+  onDeleteDictionary?:  {
+    __typename: "Dictionary",
     id: string,
+    userId: string,
     title: string,
     libraryId: string,
     library?:  {
@@ -480,6 +577,7 @@ export type OnDeleteBookSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      userId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,

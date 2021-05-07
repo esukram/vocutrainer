@@ -7,11 +7,12 @@ export const getLibraryById = /* GraphQL */ `
     getLibraryById(libraryId: $libraryId) {
       id
       name
-      books {
+      dictionaries {
         nextToken
       }
       createdAt
       updatedAt
+      userId
     }
   }
 `;
@@ -20,8 +21,47 @@ export const listLibraries = /* GraphQL */ `
     listLibraries {
       id
       name
-      books {
+      dictionaries {
         nextToken
+      }
+      createdAt
+      updatedAt
+      userId
+    }
+  }
+`;
+export const getDictionaryById = /* GraphQL */ `
+  query GetDictionaryById($dictionaryId: String!) {
+    getDictionaryById(dictionaryId: $dictionaryId) {
+      id
+      userId
+      title
+      libraryId
+      library {
+        id
+        name
+        createdAt
+        updatedAt
+        userId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listDictionaries = /* GraphQL */ `
+  query ListDictionaries {
+    listDictionaries {
+      id
+      userId
+      title
+      libraryId
+      library {
+        id
+        name
+        createdAt
+        updatedAt
+        userId
       }
       createdAt
       updatedAt
@@ -33,11 +73,12 @@ export const getLibrary = /* GraphQL */ `
     getLibrary(id: $id) {
       id
       name
-      books {
+      dictionaries {
         nextToken
       }
       createdAt
       updatedAt
+      userId
     }
   }
 `;
@@ -53,15 +94,17 @@ export const listLibrarys = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        userId
       }
       nextToken
     }
   }
 `;
-export const getBook = /* GraphQL */ `
-  query GetBook($id: ID!) {
-    getBook(id: $id) {
+export const getDictionary = /* GraphQL */ `
+  query GetDictionary($id: ID!) {
+    getDictionary(id: $id) {
       id
+      userId
       title
       libraryId
       library {
@@ -69,21 +112,23 @@ export const getBook = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        userId
       }
       createdAt
       updatedAt
     }
   }
 `;
-export const listBooks = /* GraphQL */ `
-  query ListBooks(
-    $filter: ModelBookFilterInput
+export const listDictionarys = /* GraphQL */ `
+  query ListDictionarys(
+    $filter: ModelDictionaryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBooks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listDictionarys(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        userId
         title
         libraryId
         createdAt

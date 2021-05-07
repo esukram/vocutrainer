@@ -1,11 +1,32 @@
-type Library @model {
+# AWS amplify auth documentation
+# https://docs.amplify.aws/cli/graphql-transformer/auth#auth
+
+type Library
+  @model
+  # https://docs.amplify.aws/cli/graphql-transformer/auth#auth
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "userId", provider: userPools, identityClaim: "cognito:username" },
+      { allow: groups, groups: ["admins"] }
+    ])
+{
   id: ID!
   name: String!
-  books: [Book] @connection(keyName: "byLibrary", fields: ["id"])
+  dictionaries: [Dictionary] @connection(keyName: "byLibrary", fields: ["id"])
 }
 
-type Book @model @key(name: "byLibrary", fields: ["libraryId"]) {
+type Dictionary
+    @model
+    # https://docs.amplify.aws/cli/graphql-transformer/key
+    @key(name: "byLibrary", fields: ["libraryId"])
+    @auth(
+    rules: [
+      { allow: owner, ownerField: "userId", provider: userPools, identityClaim: "cognito:username" },
+      { allow: groups, groups: ["admins"] }
+    ])
+{
   id: ID!
+  userId: String!
   title: String!
   libraryId: ID!
   library: Library @connection(fields: ["libraryId"])
@@ -14,4 +35,6 @@ type Book @model @key(name: "byLibrary", fields: ["libraryId"]) {
 type Query {
   getLibraryById(libraryId: String!): Library
   listLibraries: [Library]
+  getDictionaryById(dictionaryId: String!): Dictionary
+  listDictionaries: [Dictionary]
 }

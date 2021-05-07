@@ -10,11 +10,12 @@ export const createLibrary = /* GraphQL */ `
     createLibrary(input: $input, condition: $condition) {
       id
       name
-      books {
+      dictionaries {
         nextToken
       }
       createdAt
       updatedAt
+      userId
     }
   }
 `;
@@ -26,11 +27,12 @@ export const updateLibrary = /* GraphQL */ `
     updateLibrary(input: $input, condition: $condition) {
       id
       name
-      books {
+      dictionaries {
         nextToken
       }
       createdAt
       updatedAt
+      userId
     }
   }
 `;
@@ -42,21 +44,23 @@ export const deleteLibrary = /* GraphQL */ `
     deleteLibrary(input: $input, condition: $condition) {
       id
       name
-      books {
+      dictionaries {
         nextToken
       }
       createdAt
       updatedAt
+      userId
     }
   }
 `;
-export const createBook = /* GraphQL */ `
-  mutation CreateBook(
-    $input: CreateBookInput!
-    $condition: ModelBookConditionInput
+export const createDictionary = /* GraphQL */ `
+  mutation CreateDictionary(
+    $input: CreateDictionaryInput!
+    $condition: ModelDictionaryConditionInput
   ) {
-    createBook(input: $input, condition: $condition) {
+    createDictionary(input: $input, condition: $condition) {
       id
+      userId
       title
       libraryId
       library {
@@ -64,19 +68,21 @@ export const createBook = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        userId
       }
       createdAt
       updatedAt
     }
   }
 `;
-export const updateBook = /* GraphQL */ `
-  mutation UpdateBook(
-    $input: UpdateBookInput!
-    $condition: ModelBookConditionInput
+export const updateDictionary = /* GraphQL */ `
+  mutation UpdateDictionary(
+    $input: UpdateDictionaryInput!
+    $condition: ModelDictionaryConditionInput
   ) {
-    updateBook(input: $input, condition: $condition) {
+    updateDictionary(input: $input, condition: $condition) {
       id
+      userId
       title
       libraryId
       library {
@@ -84,19 +90,21 @@ export const updateBook = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        userId
       }
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteBook = /* GraphQL */ `
-  mutation DeleteBook(
-    $input: DeleteBookInput!
-    $condition: ModelBookConditionInput
+export const deleteDictionary = /* GraphQL */ `
+  mutation DeleteDictionary(
+    $input: DeleteDictionaryInput!
+    $condition: ModelDictionaryConditionInput
   ) {
-    deleteBook(input: $input, condition: $condition) {
+    deleteDictionary(input: $input, condition: $condition) {
       id
+      userId
       title
       libraryId
       library {
@@ -104,6 +112,7 @@ export const deleteBook = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        userId
       }
       createdAt
       updatedAt
