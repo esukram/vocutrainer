@@ -15,5 +15,3 @@ export const Header = ({children, username}: HeaderProps): JSX.Element => {
     </header>
   );
 }
-
-// export default Header;

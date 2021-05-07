@@ -5,4 +5,4 @@ export type {
  } from './API';
 
 // convenience wrapper for accessing data
-export { listLibraries } from './dto';
+export { listLibraries } from './dao';

@@ -7,6 +7,7 @@ export interface UserInfoProps {
 export const UserInfo = ({username}: UserInfoProps): JSX.Element => {
   const signOut = async () => {
     await Auth.signOut();
+    window.location.reload();
   }
 
   return (

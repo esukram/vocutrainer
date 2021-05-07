@@ -10,8 +10,7 @@ import {
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 import { Auth } from "aws-amplify";
 
-import { Library, listLibraries } from './graphql';
-import { Header } from './components';
+import { Header, Libraries } from './components';
 
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
@@ -20,7 +19,6 @@ Amplify.configure(awsExports);
 const App = () => {
   const [authState, setAuthState] = useState<AuthState>();
   const [user, setUser] = useState<CognitoUserInterface | undefined>();
-  const [books, setBooks] = useState<Library[]>([]);
 
   useEffect(() => {
 
@@ -44,20 +42,6 @@ const App = () => {
     });
   }, [authState]);
 
-  useEffect(() => {
-    async function getLibrary() {
-      if (authState !== AuthState.SignedIn || !user) return;
-
-      try {
-        setBooks( await listLibraries() );
-      } catch (error) {
-        console.error("Error fetching todos", error);
-      }
-    }
-
-    getLibrary();
-  }, [authState, user]);
-
   /*
   useEffect(() => {
     // @ts-ignore: I do not care
@@ -78,28 +62,10 @@ const App = () => {
   }, []);
   */
 
-  const Books = () => {
-    if (books.length < 1) return <p>No books available</p>
-
-    return(
-      <ul>
-        {
-          books.map((book, index) => {
-            return <li key={ index }>{book.name} ({book.id})</li>;
-          })
-        }
-      </ul>
-    );
-  }
-
   return authState === AuthState.SignedIn && user ? (
     <div className="App">
       <Header username={user.username!}></Header>
-
-      <div>
-        <h2>Books</h2>
-        <Books />
-      </div>
+      <Libraries />
     </div>
   ) : (
     <AmplifyAuthenticator />
