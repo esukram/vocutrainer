@@ -69,10 +69,16 @@ const App = () => {
   return authState === AuthState.SignedIn && user ? (
     <div className="App">
       <Header username={user.username!}></Header>
-      <Switch>
-        <Route exact path="/" component={Libraries} />
-        <Route path="/library/:id" children={<Foo />} />
-      </Switch>
+      <main>
+        <Switch>
+          <Route path="/library/:id">
+            <Foo />
+          </Route>
+          <Route exact path="/">
+            <Libraries />
+          </Route>
+        </Switch>
+      </main>
     </div>
   ) : (
     <AmplifyAuthenticator />
@@ -81,11 +87,8 @@ const App = () => {
 
 export default App;
 
-interface FooParam {
-  id: string
-}
 function Foo() {
-  const { id } = useParams<FooParam>();
+  const { id } = useParams<{id: string}>();
 
   return (
     <div>
