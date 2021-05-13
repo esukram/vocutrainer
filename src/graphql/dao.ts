@@ -17,8 +17,6 @@ export const listLibraries = async () => {
 }
 
 export const addLibrary = async (library:CreateLibraryInput) => {
-  //@ts-ignore
-  library.name = undefined;
   return await callGraphQL<CreateLibraryMutation>(
     createLibrary, {input: library}
   );
