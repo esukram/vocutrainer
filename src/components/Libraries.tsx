@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Library, listLibraries } from '../graphql';
@@ -11,25 +11,25 @@ export const Libraries = () => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ libraries, setLibraries ] = useState<Library[]>([]);
 
-  useEffect(() => {
-    async function getLibrary() {
-      console.log('Loading libraries...');
-      try {
-        setIsLoading(true);
-        setLibraries( await listLibraries() );
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching todos", error);
-      }
+  const loadLibraries = useCallback(async () => {
+    console.log('Loading libraries...', new Date().toTimeString());
+    try {
+      setIsLoading(true);
+      setLibraries( await listLibraries() );
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching todos", error);
     }
-
-    getLibrary();
   }, []);
+
+  useEffect(() => {
+    loadLibraries();
+  }, [loadLibraries]);
 
   return (
     <>
       <h2>Libraries</h2>
-      <LibraryAdd />
+      <LibraryAdd onAdd={loadLibraries} />
       { isLoading &&
         <p>is loading!</p>
       }

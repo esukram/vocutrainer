@@ -9,15 +9,19 @@ import {
 import { addLibrary } from "../graphql"
 import { CreateLibraryInput as Library } from "graphql/API";
 
-export const LibraryAdd = () => {
+export interface LibraryAddProps {
+  onAdd: () => void
+}
+
+export const LibraryAdd = ({onAdd}: LibraryAddProps) => {
   const initialValues:Library = {name: ''};
 
   const onSubmit = async(library: Library, helpers: FormikHelpers<Library>) => {
     try {
       await addLibrary(library);
       helpers.resetForm();
-      // TODO: How to refresh state of parent component?
-      window.location.reload();
+      // calling refresh of parent
+      onAdd();
     } catch (err) {
       // TODO: Add error display
       console.log("Adding failed: ", err);

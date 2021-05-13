@@ -47,26 +47,6 @@ const App = () => {
     });
   }, [authState]);
 
-  /*
-  useEffect(() => {
-    // @ts-ignore: I do not care
-    async function addLibrary() {
-      try {
-        const entry: CreateLibraryInput = {
-          name: 'Foo',
-        };
-
-        const result = await API.graphql(graphqlOperation(createLibrary, {input: entry}))
-        console.log(result);
-      } catch (err) {
-        console.log('error creating entry:', err)
-      }
-    }
-
-    //addLibrary();
-  }, []);
-  */
-
   return authState === AuthState.SignedIn && user ? (
     <div className="App">
       <Header username={user.username!}></Header>
