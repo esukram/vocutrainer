@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Library, listLibraries } from '../graphql';
+import { LibraryAdd } from './LibraryAdd';
 
 export const librariesPath = '/libraries'
 export const libraryIdPath = '/library/:libraryId';
@@ -12,6 +13,7 @@ export const Libraries = () => {
 
   useEffect(() => {
     async function getLibrary() {
+      console.log('Loading libraries...');
       try {
         setIsLoading(true);
         setLibraries( await listLibraries() );
@@ -27,6 +29,7 @@ export const Libraries = () => {
   return (
     <>
       <h2>Libraries</h2>
+      <LibraryAdd />
       { isLoading &&
         <p>is loading!</p>
       }

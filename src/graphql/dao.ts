@@ -1,8 +1,12 @@
 //import { GraphQLResult } from "@aws-amplify/api";
 import callGraphQL from './graphql-api';
 
-import { Library, ListLibrarysQuery } from "./API";
+import {
+  CreateLibraryInput, CreateLibraryMutation,
+  Library, ListLibrarysQuery
+} from "./API";
 import { listLibrarys } from "./queries";
+import { createLibrary } from "./mutations";
 
 export const listLibraries = async () => {
   const librariesData = await callGraphQL<ListLibrarysQuery>(listLibrarys);
@@ -10,4 +14,12 @@ export const listLibraries = async () => {
   return librariesData.data?.listLibrarys?.items?.map(
     library => ({ ...library } as Library))
   || []
+}
+
+export const addLibrary = async (library:CreateLibraryInput) => {
+  //@ts-ignore
+  library.name = undefined;
+  return await callGraphQL<CreateLibraryMutation>(
+    createLibrary, {input: library}
+  );
 }
