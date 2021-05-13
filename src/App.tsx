@@ -3,7 +3,8 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import {
   Switch,
-  Route,useParams
+  Route,
+  useParams
 } from 'react-router-dom';
 
 import {
@@ -71,8 +72,8 @@ const App = () => {
       <Header username={user.username!}></Header>
       <main>
         <Switch>
-          <Route path="/library/:id">
-            <Foo />
+          <Route path="/library/:libraryId">
+            <Library />
           </Route>
           <Route exact path="/">
             <Libraries />
@@ -87,12 +88,12 @@ const App = () => {
 
 export default App;
 
-function Foo() {
-  const { id } = useParams<{id: string}>();
+function Library() {
+  const { libraryId } = useParams<{libraryId: string}>();
 
   return (
     <div>
-      <h3>ID: {id}</h3>
+      <h3>ID: {libraryId}</h3>
     </div>
   );
 }
