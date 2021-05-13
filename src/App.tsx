@@ -1,11 +1,7 @@
 import './App.css';
 
 import { useState, useEffect } from 'react';
-import {
-  Switch,
-  Route,
-  useParams
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import {
   onAuthUIStateChange,
@@ -15,7 +11,11 @@ import {
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 import { Auth } from "aws-amplify";
 
-import { Header, Libraries } from './components';
+import {
+  Header,
+  Home,
+  Libraries, libraryIdPath, Library
+} from './components';
 
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
@@ -72,11 +72,14 @@ const App = () => {
       <Header username={user.username!}></Header>
       <main>
         <Switch>
-          <Route path="/library/:libraryId">
+          <Route path={libraryIdPath}>
             <Library />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/libraries">
             <Libraries />
+          </Route>
+          <Route exact path="/">
+            <Home />
           </Route>
         </Switch>
       </main>
@@ -87,13 +90,3 @@ const App = () => {
 };
 
 export default App;
-
-function Library() {
-  const { libraryId } = useParams<{libraryId: string}>();
-
-  return (
-    <div>
-      <h3>ID: {libraryId}</h3>
-    </div>
-  );
-}

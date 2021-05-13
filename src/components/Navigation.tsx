@@ -6,7 +6,7 @@ export const Navigation = (): JSX.Element => {
     <nav>
       <ul>
         <li><NavLink exact to="/" activeStyle={{fontWeight: "bold"}}>Home</NavLink></li>
-        <li>Libraries</li>
+        <li><NavLink exact to="/libraries" activeStyle={{fontWeight: "bold"}}>Libraries</NavLink></li>
       </ul>
     </nav>
   );

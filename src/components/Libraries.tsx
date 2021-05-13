@@ -3,6 +3,9 @@ import { generatePath, Link } from 'react-router-dom';
 
 import { Library, listLibraries } from '../graphql';
 
+export const librariesPath = '/libraries'
+export const libraryIdPath = '/library/:libraryId';
+
 export const Libraries = () => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ libraries, setLibraries ] = useState<Library[]>([]);
@@ -35,7 +38,7 @@ export const Libraries = () => {
           { libraries.map((library, _) => {
             return (
               <li key={ library.id }>
-                <Link to={generatePath('/library/:id', { id: library.id! })}>
+                <Link to={generatePath(libraryIdPath, { libraryId: library.id! })}>
                   {library.name}
                 </Link>
               </li>
