@@ -10,15 +10,17 @@ export const libraryIdPath = '/library/:libraryId';
 export const Libraries = () => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ libraries, setLibraries ] = useState<Library[]>([]);
+  const [ errors, setErrors] = useState<Error[]>();
 
   const loadLibraries = useCallback(async () => {
-    console.log('Loading libraries...', new Date().toTimeString());
     try {
       setIsLoading(true);
       setLibraries( await listLibraries() );
       setIsLoading(false);
     } catch (error) {
-      console.error("Error fetching todos", error);
+      setErrors(error.errors);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -28,6 +30,14 @@ export const Libraries = () => {
 
   return (
     <>
+      { errors && errors.length >= 0 && <div style={{border: '1px solid red'}}>
+        <ul>
+          { errors?.map((error, idx) => {
+            return (<li key={idx}>{error.message}</li>)
+          })
+          }
+        </ul>
+      </div>}
       <h2>Libraries</h2>
       <LibraryAdd onAdd={loadLibraries} />
       { isLoading &&
