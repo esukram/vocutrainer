@@ -70,7 +70,12 @@ export const Libraries = () => {
       }
       { !isLoading &&
         <ul>
-          { libraries.map((library, _) => {
+          { libraries.sort((a, b) => {
+            if ((a.name?.toLocaleLowerCase() ?? '') < (b.name?.toLocaleLowerCase() ?? '')) return -1;
+            if ((a.name?.toLocaleLowerCase() ?? '') > (b.name?.toLocaleLowerCase() ?? '')) return 1;
+
+            return 0;
+          }).map((library, _) => {
             return (
               <li key={ library.id }>
                 <Link to={generatePath(libraryIdPath, { libraryId: library.id! })}>
