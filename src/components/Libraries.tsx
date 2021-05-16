@@ -15,6 +15,7 @@ export const Libraries = () => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ libraries, setLibraries ] = useState<Library[]>([]);
   const [ errors, setErrors] = useState<Error[]>();
+  const [ info, setInfo] = useState<string>();
 
   const loadLibraries = useCallback(async () => {
     try {
@@ -33,10 +34,12 @@ export const Libraries = () => {
   }, [loadLibraries]);
 
   const deleteLibraryHandler = async (libraryId: string) => {
-    console.log('About to delete: ', libraryId);
     try {
-      await deleteLibrary(libraryId);
-      loadLibraries();
+      const deleted = await deleteLibrary(libraryId);
+      if (deleted) {
+        setInfo(`Deleted library: ${deleted.name} (${deleted.id}).`);
+        loadLibraries();
+      }
     } catch (error) {
       setErrors(error.errors);
     }
@@ -44,14 +47,19 @@ export const Libraries = () => {
 
   return (
     <>
-      { errors && errors.length >= 0 && <div style={{border: '1px solid red'}}>
-        <ul>
-          { errors?.map((error, idx) => {
-            return (<li key={idx}>{error.message}</li>)
-          })
-          }
-        </ul>
-      </div>}
+      { errors && errors.length >= 0 &&
+        <div style={{border: '1px solid red'}}>
+          <ul>
+            { errors?.map((error, idx) => {
+              return (<li key={idx}>{error.message}</li>)
+            })
+            }
+          </ul>
+        </div>
+      }
+      { info &&
+        <div style={{border: '1px solid blue'}}>{info}</div>
+      }
       <h2>Libraries</h2>
       <LibraryAdd onAdd={loadLibraries} />
       { isLoading &&

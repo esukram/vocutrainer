@@ -1,9 +1,6 @@
-import { API, graphqlOperation } from 'aws-amplify';
-import { GraphQLResult } from "@aws-amplify/api";
-
 import {
   CreateLibraryInput, CreateLibraryMutation,
-  DeleteLibraryMutation, DeleteLibraryMutationVariables, DeleteLibraryInput,
+  DeleteLibraryMutation,
   Library, ListLibrarysQuery,
 } from "./API";
 import { listLibrarys } from "./queries";
@@ -18,10 +15,11 @@ export const addLibrary = async (library:CreateLibraryInput) => {
 }
 
 export const deleteLibrary = async (libraryId:string) => {
-  const delResult = await API.graphql(graphqlOperation(deleteLibMutation, { input: {id: libraryId} })) as GraphQLResult<DeleteLibraryMutation>;
-  console.log(delResult);
+  const deleted = await callGraphQL<DeleteLibraryMutation>(
+    deleteLibMutation, {input: {id: libraryId}}
+  );
 
-  return delResult;
+  return deleted.data?.deleteLibrary;
 }
 
 export const listLibraries = async () => {
