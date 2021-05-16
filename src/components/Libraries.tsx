@@ -1,7 +1,11 @@
+import { deleteLibrary } from 'graphql/dao';
 import { useState, useEffect, useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
-import { Library, listLibraries } from '../graphql';
+import {
+  Library,
+  listLibraries
+} from '../graphql';
 import { LibraryAdd } from './LibraryAdd';
 
 export const librariesPath = '/libraries'
@@ -27,6 +31,16 @@ export const Libraries = () => {
   useEffect(() => {
     loadLibraries();
   }, [loadLibraries]);
+
+  const deleteLibraryHandler = async (libraryId: string) => {
+    console.log('About to delete: ', libraryId);
+    try {
+      await deleteLibrary(libraryId);
+      loadLibraries();
+    } catch (error) {
+      setErrors(error.errors);
+    }
+  }
 
   return (
     <>
@@ -54,6 +68,7 @@ export const Libraries = () => {
                 <Link to={generatePath(libraryIdPath, { libraryId: library.id! })}>
                   {library.name} ({library.username})
                 </Link>
+                <button onClick={() => {deleteLibraryHandler(library.id!)}}>Delete</button>
               </li>
             )
           })}
