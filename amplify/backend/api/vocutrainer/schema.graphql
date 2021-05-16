@@ -4,15 +4,20 @@
 type Library
   @model
   # https://docs.amplify.aws/cli/graphql-transformer/auth#auth
+  # subject: { ..., provider: userPools, identityClaim: "sub" }
   @auth(
     rules: [
-      { allow: owner, ownerField: "userId", provider: userPools, identityClaim: "cognito:username" },
+      { allow: owner, ownerField: "username" },
       { allow: groups, groups: ["admins"] }
-    ])
+    ]
+  )
 {
   id: ID!
   name: String!
   dictionaries: [Dictionary]! @connection(keyName: "byLibrary", fields: ["id"])
+  username: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
 type Dictionary
@@ -21,20 +26,15 @@ type Dictionary
     @key(name: "byLibrary", fields: ["libraryId"])
     @auth(
     rules: [
-      { allow: owner, ownerField: "userId", provider: userPools, identityClaim: "cognito:username" },
+      { allow: owner, ownerField: "username" },
       { allow: groups, groups: ["admins"] }
     ])
 {
   id: ID!
-  userId: String!
   title: String!
   libraryId: ID!
   library: Library! @connection(fields: ["libraryId"])
-}
-
-type Query {
-  getLibraryById(libraryId: String!): Library
-  listLibraries: [Library]
-  getDictionaryById(dictionaryId: String!): Dictionary
-  listDictionaries: [Dictionary]
+  username: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }

@@ -5,10 +5,15 @@
 export type CreateLibraryInput = {
   id?: string | null,
   name: string,
+  username?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type ModelLibraryConditionInput = {
   name?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelLibraryConditionInput | null > | null,
   or?: Array< ModelLibraryConditionInput | null > | null,
   not?: ModelLibraryConditionInput | null,
@@ -59,9 +64,9 @@ export type Library = {
   id?: string,
   name?: string,
   dictionaries?: ModelDictionaryConnection,
-  createdAt?: string,
-  updatedAt?: string,
-  userId?: string | null,
+  username?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type ModelDictionaryConnection = {
@@ -73,17 +78,20 @@ export type ModelDictionaryConnection = {
 export type Dictionary = {
   __typename: "Dictionary",
   id?: string,
-  userId?: string,
   title?: string,
   libraryId?: string,
   library?: Library,
-  createdAt?: string,
-  updatedAt?: string,
+  username?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type UpdateLibraryInput = {
   id: string,
   name?: string | null,
+  username?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type DeleteLibraryInput = {
@@ -92,14 +100,18 @@ export type DeleteLibraryInput = {
 
 export type CreateDictionaryInput = {
   id?: string | null,
-  userId: string,
   title: string,
   libraryId: string,
+  username?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type ModelDictionaryConditionInput = {
   title?: ModelStringInput | null,
   libraryId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelDictionaryConditionInput | null > | null,
   or?: Array< ModelDictionaryConditionInput | null > | null,
   not?: ModelDictionaryConditionInput | null,
@@ -123,9 +135,11 @@ export type ModelIDInput = {
 
 export type UpdateDictionaryInput = {
   id: string,
-  userId?: string | null,
   title?: string | null,
   libraryId?: string | null,
+  username?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type DeleteDictionaryInput = {
@@ -135,6 +149,9 @@ export type DeleteDictionaryInput = {
 export type ModelLibraryFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
+  username?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelLibraryFilterInput | null > | null,
   or?: Array< ModelLibraryFilterInput | null > | null,
   not?: ModelLibraryFilterInput | null,
@@ -148,9 +165,11 @@ export type ModelLibraryConnection = {
 
 export type ModelDictionaryFilterInput = {
   id?: ModelIDInput | null,
-  userId?: ModelStringInput | null,
   title?: ModelStringInput | null,
   libraryId?: ModelIDInput | null,
+  username?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelDictionaryFilterInput | null > | null,
   or?: Array< ModelDictionaryFilterInput | null > | null,
   not?: ModelDictionaryFilterInput | null,
@@ -170,9 +189,9 @@ export type CreateLibraryMutation = {
       __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -190,9 +209,9 @@ export type UpdateLibraryMutation = {
       __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -210,9 +229,9 @@ export type DeleteLibraryMutation = {
       __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -225,19 +244,19 @@ export type CreateDictionaryMutation = {
   createDictionary?:  {
     __typename: "Dictionary",
     id: string,
-    userId: string,
     title: string,
     libraryId: string,
-    library?:  {
+    library:  {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+    },
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -250,19 +269,19 @@ export type UpdateDictionaryMutation = {
   updateDictionary?:  {
     __typename: "Dictionary",
     id: string,
-    userId: string,
     title: string,
     libraryId: string,
-    library?:  {
+    library:  {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+    },
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -275,98 +294,20 @@ export type DeleteDictionaryMutation = {
   deleteDictionary?:  {
     __typename: "Dictionary",
     id: string,
-    userId: string,
     title: string,
     libraryId: string,
-    library?:  {
+    library:  {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+    },
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
-};
-
-export type GetLibraryByIdQueryVariables = {
-  libraryId?: string,
-};
-
-export type GetLibraryByIdQuery = {
-  getLibraryById?:  {
-    __typename: "Library",
-    id: string,
-    name: string,
-    dictionaries?:  {
-      __typename: "ModelDictionaryConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
-  } | null,
-};
-
-export type ListLibrariesQuery = {
-  listLibraries?:  Array< {
-    __typename: "Library",
-    id: string,
-    name: string,
-    dictionaries?:  {
-      __typename: "ModelDictionaryConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
-  } | null > | null,
-};
-
-export type GetDictionaryByIdQueryVariables = {
-  dictionaryId?: string,
-};
-
-export type GetDictionaryByIdQuery = {
-  getDictionaryById?:  {
-    __typename: "Dictionary",
-    id: string,
-    userId: string,
-    title: string,
-    libraryId: string,
-    library?:  {
-      __typename: "Library",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListDictionariesQuery = {
-  listDictionaries?:  Array< {
-    __typename: "Dictionary",
-    id: string,
-    userId: string,
-    title: string,
-    libraryId: string,
-    library?:  {
-      __typename: "Library",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null > | null,
 };
 
 export type GetLibraryQueryVariables = {
@@ -382,9 +323,9 @@ export type GetLibraryQuery = {
       __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -401,9 +342,9 @@ export type ListLibrarysQuery = {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -417,19 +358,19 @@ export type GetDictionaryQuery = {
   getDictionary?:  {
     __typename: "Dictionary",
     id: string,
-    userId: string,
     title: string,
     libraryId: string,
-    library?:  {
+    library:  {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+    },
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -445,18 +386,18 @@ export type ListDictionarysQuery = {
     items?:  Array< {
       __typename: "Dictionary",
       id: string,
-      userId: string,
       title: string,
       libraryId: string,
-      createdAt: string,
-      updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
 };
 
 export type OnCreateLibrarySubscriptionVariables = {
-  userId?: string | null,
+  username?: string | null,
 };
 
 export type OnCreateLibrarySubscription = {
@@ -468,14 +409,14 @@ export type OnCreateLibrarySubscription = {
       __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
 export type OnUpdateLibrarySubscriptionVariables = {
-  userId?: string | null,
+  username?: string | null,
 };
 
 export type OnUpdateLibrarySubscription = {
@@ -487,14 +428,14 @@ export type OnUpdateLibrarySubscription = {
       __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
 export type OnDeleteLibrarySubscriptionVariables = {
-  userId?: string | null,
+  username?: string | null,
 };
 
 export type OnDeleteLibrarySubscription = {
@@ -506,80 +447,80 @@ export type OnDeleteLibrarySubscription = {
       __typename: "ModelDictionaryConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-    userId?: string | null,
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
 export type OnCreateDictionarySubscriptionVariables = {
-  userId?: string | null,
+  username?: string | null,
 };
 
 export type OnCreateDictionarySubscription = {
   onCreateDictionary?:  {
     __typename: "Dictionary",
     id: string,
-    userId: string,
     title: string,
     libraryId: string,
-    library?:  {
+    library:  {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+    },
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
 export type OnUpdateDictionarySubscriptionVariables = {
-  userId?: string | null,
+  username?: string | null,
 };
 
 export type OnUpdateDictionarySubscription = {
   onUpdateDictionary?:  {
     __typename: "Dictionary",
     id: string,
-    userId: string,
     title: string,
     libraryId: string,
-    library?:  {
+    library:  {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+    },
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
 export type OnDeleteDictionarySubscriptionVariables = {
-  userId?: string | null,
+  username?: string | null,
 };
 
 export type OnDeleteDictionarySubscription = {
   onDeleteDictionary?:  {
     __typename: "Dictionary",
     id: string,
-    userId: string,
     title: string,
     libraryId: string,
-    library?:  {
+    library:  {
       __typename: "Library",
       id: string,
       name: string,
-      createdAt: string,
-      updatedAt: string,
-      userId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+      username?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
+    },
+    username?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };

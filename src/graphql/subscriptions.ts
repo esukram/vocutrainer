@@ -3,99 +3,99 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateLibrary = /* GraphQL */ `
-  subscription OnCreateLibrary($userId: String) {
-    onCreateLibrary(userId: $userId) {
+  subscription OnCreateLibrary($username: String) {
+    onCreateLibrary(username: $username) {
       id
       name
       dictionaries {
         nextToken
       }
+      username
       createdAt
       updatedAt
-      userId
     }
   }
 `;
 export const onUpdateLibrary = /* GraphQL */ `
-  subscription OnUpdateLibrary($userId: String) {
-    onUpdateLibrary(userId: $userId) {
+  subscription OnUpdateLibrary($username: String) {
+    onUpdateLibrary(username: $username) {
       id
       name
       dictionaries {
         nextToken
       }
+      username
       createdAt
       updatedAt
-      userId
     }
   }
 `;
 export const onDeleteLibrary = /* GraphQL */ `
-  subscription OnDeleteLibrary($userId: String) {
-    onDeleteLibrary(userId: $userId) {
+  subscription OnDeleteLibrary($username: String) {
+    onDeleteLibrary(username: $username) {
       id
       name
       dictionaries {
         nextToken
       }
+      username
       createdAt
       updatedAt
-      userId
     }
   }
 `;
 export const onCreateDictionary = /* GraphQL */ `
-  subscription OnCreateDictionary($userId: String) {
-    onCreateDictionary(userId: $userId) {
+  subscription OnCreateDictionary($username: String) {
+    onCreateDictionary(username: $username) {
       id
-      userId
       title
       libraryId
       library {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
+      username
       createdAt
       updatedAt
     }
   }
 `;
 export const onUpdateDictionary = /* GraphQL */ `
-  subscription OnUpdateDictionary($userId: String) {
-    onUpdateDictionary(userId: $userId) {
+  subscription OnUpdateDictionary($username: String) {
+    onUpdateDictionary(username: $username) {
       id
-      userId
       title
       libraryId
       library {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
+      username
       createdAt
       updatedAt
     }
   }
 `;
 export const onDeleteDictionary = /* GraphQL */ `
-  subscription OnDeleteDictionary($userId: String) {
-    onDeleteDictionary(userId: $userId) {
+  subscription OnDeleteDictionary($username: String) {
+    onDeleteDictionary(username: $username) {
       id
-      userId
       title
       libraryId
       library {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
+      username
       createdAt
       updatedAt
     }

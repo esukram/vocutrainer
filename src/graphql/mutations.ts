@@ -13,9 +13,9 @@ export const createLibrary = /* GraphQL */ `
       dictionaries {
         nextToken
       }
+      username
       createdAt
       updatedAt
-      userId
     }
   }
 `;
@@ -30,9 +30,9 @@ export const updateLibrary = /* GraphQL */ `
       dictionaries {
         nextToken
       }
+      username
       createdAt
       updatedAt
-      userId
     }
   }
 `;
@@ -47,9 +47,9 @@ export const deleteLibrary = /* GraphQL */ `
       dictionaries {
         nextToken
       }
+      username
       createdAt
       updatedAt
-      userId
     }
   }
 `;
@@ -60,16 +60,16 @@ export const createDictionary = /* GraphQL */ `
   ) {
     createDictionary(input: $input, condition: $condition) {
       id
-      userId
       title
       libraryId
       library {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
+      username
       createdAt
       updatedAt
     }
@@ -82,16 +82,16 @@ export const updateDictionary = /* GraphQL */ `
   ) {
     updateDictionary(input: $input, condition: $condition) {
       id
-      userId
       title
       libraryId
       library {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
+      username
       createdAt
       updatedAt
     }
@@ -104,16 +104,16 @@ export const deleteDictionary = /* GraphQL */ `
   ) {
     deleteDictionary(input: $input, condition: $condition) {
       id
-      userId
       title
       libraryId
       library {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
+      username
       createdAt
       updatedAt
     }

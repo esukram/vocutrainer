@@ -2,72 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getLibraryById = /* GraphQL */ `
-  query GetLibraryById($libraryId: String!) {
-    getLibraryById(libraryId: $libraryId) {
-      id
-      name
-      dictionaries {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      userId
-    }
-  }
-`;
-export const listLibraries = /* GraphQL */ `
-  query ListLibraries {
-    listLibraries {
-      id
-      name
-      dictionaries {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      userId
-    }
-  }
-`;
-export const getDictionaryById = /* GraphQL */ `
-  query GetDictionaryById($dictionaryId: String!) {
-    getDictionaryById(dictionaryId: $dictionaryId) {
-      id
-      userId
-      title
-      libraryId
-      library {
-        id
-        name
-        createdAt
-        updatedAt
-        userId
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listDictionaries = /* GraphQL */ `
-  query ListDictionaries {
-    listDictionaries {
-      id
-      userId
-      title
-      libraryId
-      library {
-        id
-        name
-        createdAt
-        updatedAt
-        userId
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const getLibrary = /* GraphQL */ `
   query GetLibrary($id: ID!) {
     getLibrary(id: $id) {
@@ -76,9 +10,9 @@ export const getLibrary = /* GraphQL */ `
       dictionaries {
         nextToken
       }
+      username
       createdAt
       updatedAt
-      userId
     }
   }
 `;
@@ -92,9 +26,9 @@ export const listLibrarys = /* GraphQL */ `
       items {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
       nextToken
     }
@@ -104,16 +38,16 @@ export const getDictionary = /* GraphQL */ `
   query GetDictionary($id: ID!) {
     getDictionary(id: $id) {
       id
-      userId
       title
       libraryId
       library {
         id
         name
+        username
         createdAt
         updatedAt
-        userId
       }
+      username
       createdAt
       updatedAt
     }
@@ -128,9 +62,9 @@ export const listDictionarys = /* GraphQL */ `
     listDictionarys(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        userId
         title
         libraryId
+        username
         createdAt
         updatedAt
       }
