@@ -1,7 +1,9 @@
 import {
-  CreateLibraryInput, CreateLibraryMutation,
-  DeleteLibraryMutation,
-  Library, ListLibrarysQuery,
+  Library,
+  CreateLibraryInput,
+  CreateLibraryMutation, CreateLibraryMutationVariables,
+  DeleteLibraryMutation, DeleteLibraryMutationVariables,
+  ListLibrarysQuery, ListLibrarysQueryVariables
 } from "./API";
 import { listLibrarys } from "./queries";
 import { createLibrary, deleteLibrary as deleteLibMutation } from "./mutations";
@@ -9,13 +11,13 @@ import { createLibrary, deleteLibrary as deleteLibMutation } from "./mutations";
 import callGraphQL from './graphql-api';
 
 export const addLibrary = async (library:CreateLibraryInput) => {
-  return await callGraphQL<CreateLibraryMutation>(
+  return await callGraphQL<CreateLibraryMutation, CreateLibraryMutationVariables>(
     createLibrary, {input: library}
   );
 }
 
 export const deleteLibrary = async (libraryId:string) => {
-  const deleted = await callGraphQL<DeleteLibraryMutation>(
+  const deleted = await callGraphQL<DeleteLibraryMutation, DeleteLibraryMutationVariables>(
     deleteLibMutation, {input: {id: libraryId}}
   );
 
@@ -23,7 +25,7 @@ export const deleteLibrary = async (libraryId:string) => {
 }
 
 export const listLibraries = async () => {
-  const librariesData = await callGraphQL<ListLibrarysQuery>(listLibrarys);
+  const librariesData = await callGraphQL<ListLibrarysQuery, ListLibrarysQueryVariables>(listLibrarys);
 
   return librariesData.data?.listLibrarys?.items?.map(
     library => ({ ...library } as Library))
