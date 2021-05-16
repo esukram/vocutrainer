@@ -52,7 +52,7 @@ export const Libraries = () => {
             return (
               <li key={ library.id }>
                 <Link to={generatePath(libraryIdPath, { libraryId: library.id! })}>
-                  {library.name}
+                  {library.name} ({library.username})
                 </Link>
               </li>
             )
