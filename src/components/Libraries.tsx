@@ -1,10 +1,9 @@
-import { deleteLibrary } from 'graphql/dao';
 import { useState, useEffect, useCallback } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
   Library,
-  listLibraries
+  deleteLibrary, listLibraries
 } from '../graphql';
 import { LibraryAdd } from './LibraryAdd';
 
@@ -71,17 +70,17 @@ export const Libraries = () => {
       { !isLoading &&
         <ul>
           { libraries.sort((a, b) => {
-            if ((a.name?.toLocaleLowerCase() ?? '') < (b.name?.toLocaleLowerCase() ?? '')) return -1;
-            if ((a.name?.toLocaleLowerCase() ?? '') > (b.name?.toLocaleLowerCase() ?? '')) return 1;
+            if (a.name?.toLocaleLowerCase() < b.name?.toLocaleLowerCase() ) return -1;
+            if (a.name?.toLocaleLowerCase() > b.name?.toLocaleLowerCase() ) return 1;
 
             return 0;
           }).map((library, _) => {
             return (
               <li key={ library.id }>
-                <Link to={generatePath(libraryIdPath, { libraryId: library.id! })}>
+                <Link to={generatePath(libraryIdPath, { libraryId: library.id })}>
                   {library.name} ({library.username})
                 </Link>
-                <button onClick={() => {deleteLibraryHandler(library.id!)}}>Delete</button>
+                <button onClick={() => { deleteLibraryHandler(library.id) }}>Delete</button>
               </li>
             )
           })}

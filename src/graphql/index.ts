@@ -1,11 +1,16 @@
 // convenience wrapper for DTOs
-export type {
-  Library,
-  Dictionary
+import {
+  Library as LibraryGen,
+  Dictionary as DictionaryGen,
  } from './API';
+
+ // make fields non-empty
+ export type Library = Required<Omit<LibraryGen, "__typename">>;
+ export type Dictionary = Required<Omit<DictionaryGen, "__typename">>;
 
 // convenience wrapper for accessing data
 export {
   addLibrary,
+  deleteLibrary,
   listLibraries
 } from './dao';

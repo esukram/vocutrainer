@@ -6,19 +6,21 @@ import {
   FormikErrors
 } from 'formik';
 
-import { addLibrary } from "../graphql"
-import { CreateLibraryInput as Library } from "graphql/API";
+import { addLibrary } from "../graphql";
 
 export interface LibraryAddProps {
   onAdd: () => void
 }
+type Library = {
+  name: string
+}
 
 export const LibraryAdd = ({onAdd}: LibraryAddProps) => {
-  const initialValues:Library = {name: ''};
+  const initialValues: Library = { name: '' };
 
   const onSubmit = async(library: Library, helpers: FormikHelpers<Library>) => {
     try {
-      await addLibrary(library);
+      await addLibrary(library.name);
       helpers.resetForm();
       // calling refresh of parent
       onAdd();
@@ -43,7 +45,7 @@ export const LibraryAdd = ({onAdd}: LibraryAddProps) => {
         return errors;
       }}
     >
-      {({ errors, touched, isValidating, isSubmitting }) => (
+      {({ errors, touched, isValidating, isSubmitting  }) => (
         <Form>
           <fieldset>
             <legend>New Library Entry</legend>
