@@ -1,5 +1,5 @@
 // convenience wrapper for DTOs
-import {
+import type {
   Library as LibraryGen,
   Dictionary as DictionaryGen,
  } from './API';

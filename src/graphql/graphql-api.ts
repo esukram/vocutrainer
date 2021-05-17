@@ -1,5 +1,5 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { GraphQLResult, GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
+import type { GraphQLResult, GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 
 export interface GraphQLOptions {
   input?: object;

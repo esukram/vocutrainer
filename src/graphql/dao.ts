@@ -1,5 +1,5 @@
-import { Library } from './'
-import {
+import type { Library } from './'
+import type {
   CreateLibraryMutation, CreateLibraryMutationVariables,
   DeleteLibraryMutation, DeleteLibraryMutationVariables,
   ListLibrarysQuery, ListLibrarysQueryVariables
