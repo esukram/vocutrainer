@@ -1,4 +1,3 @@
-
 {
   "include": ["src", "types"],
   "compilerOptions": {
@@ -6,7 +5,7 @@
     "target": "esnext",
     "moduleResolution": "node",
     "jsx": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "./",
     /* paths - import rewriting/resolving */
     "paths": {
       // If you configured any Snowpack aliases, add them here.
@@ -18,13 +17,13 @@
     "noEmit": true,
     /* Additional Options */
     "strict": true,
-    "allowJs": true,
     "skipLibCheck": true,
     "types": ["mocha", "snowpack-env"],
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "importsNotUsedAsValues": "error",
+    "allowJs": true,
     "isolatedModules": false
   }
 }

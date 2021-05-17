@@ -1,3 +1,4 @@
+const commonjs = require('@rollup/plugin-commonjs');
 
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
@@ -25,7 +26,20 @@ module.exports = {
     // "bundle": true,
   },
   packageOptions: {
-    polyfillNode: true
+    polyfillNode: true,
+    // convert mixed 'liar' packages from commonjs
+    rollup: {
+      plugins: [
+        commonjs({
+          include: [
+            // packages
+            'node_modules/aws-amplify/**/*.js'
+          ],
+          // the mixing is the problem
+          transformMixedEsModules: true
+        })
+      ]
+    }
     /* ... */
   },
   devOptions: {
