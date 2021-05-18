@@ -9,7 +9,8 @@ import {
   CognitoUserInterface
  } from "@aws-amplify/ui-components";
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
-import { Auth } from "aws-amplify";
+import {withAuthenticator} from 'aws-amplify-react';
+import { Auth } from "@aws-amplify/auth";
 
 import {
   Header,
@@ -17,7 +18,7 @@ import {
   Libraries, libraryIdPath, Library
 } from './components';
 
-import Amplify from "aws-amplify";
+import Amplify from "@aws-amplify/core";
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
@@ -65,8 +66,9 @@ const App = () => {
       </main>
     </div>
   ) : (
-    <AmplifyAuthenticator />
+    <div>Login</div>
+
   );
 };
 
-export default App;
+export default withAuthenticator(App);
