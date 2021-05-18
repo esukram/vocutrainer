@@ -1,10 +1,9 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { GraphQLResult, GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
+import type { GraphQLResult } from "@aws-amplify/api";
 
 export interface GraphQLOptions {
   input?: object;
   variables?: object;
-  authMode?: GRAPHQL_AUTH_MODE;
 }
 
 export interface SubscriptionValue<T> {
