@@ -19,6 +19,6 @@
     "importsNotUsedAsValues": "error",
     "jsx": "react-jsx"
   },
-  "include": ["./src"],
+  "include": ["./src", "./vite-plugins"],
   "files": ["types/index.d.ts"]
 }
