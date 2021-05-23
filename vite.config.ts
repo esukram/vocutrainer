@@ -31,7 +31,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          aws_amplify_react: ["aws-amplify-react"],
           aws_amplify: ['aws-amplify'],
         }
       }
