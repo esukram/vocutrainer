@@ -8,7 +8,7 @@ import {
   AuthState,
   CognitoUserInterface
  } from "@aws-amplify/ui-components";
-import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
+//import { AmplifyAuthenticator } from '@aws-amplify/ui-react';
 import {withAuthenticator} from 'aws-amplify-react';
 import { Auth } from "@aws-amplify/auth";
 
@@ -66,9 +66,10 @@ const App = () => {
       </main>
     </div>
   ) : (
+    // <AmplifyAuthenticator />
     <div>Login</div>
-
   );
 };
 
+// rework with https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#re-send-confirmation-code
 export default withAuthenticator(App);
