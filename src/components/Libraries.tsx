@@ -1,75 +1,47 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
-  Library,
-  deleteLibrary, listLibraries
-} from '../graphql';
+  useDeleteLibraryMutation,
+  useListLibrariesQuery
+} from '../graphql/dao';
 import { LibraryAdd } from './LibraryAdd';
+import type { Library } from '../graphql'
 
 export const librariesPath = '/libraries'
 export const libraryIdPath = '/library/:libraryId';
 
 export const Libraries = () => {
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ libraries, setLibraries ] = useState<Library[]>([]);
-  const [ errors, setErrors] = useState<Error[]>();
   const [ info, setInfo] = useState<string>();
+  const {
+    status, error, data: libraries, refetch
+  } = useListLibrariesQuery();
+  const deleteLibraryMut = useDeleteLibraryMutation();
 
-  const loadLibraries = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      setLibraries( await listLibraries() );
-      setIsLoading(false);
-    } catch (error) {
-      setErrors(error.errors);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    loadLibraries();
-  }, [loadLibraries]);
-
-  const deleteLibraryHandler = async (libraryId: string) => {
-    try {
-      const deleted = await deleteLibrary(libraryId);
-      if (deleted) {
-        setInfo(`Deleted library: ${deleted.name} (${deleted.id}).`);
-        loadLibraries();
-      }
-    } catch (error) {
-      setErrors(error.errors);
-    }
+  const deleteLibraryHandler = async (library: Library) => {
+    const deleted = await deleteLibraryMut.mutateAsync(library);
+    setInfo(`Deleted library: ${deleted.name} (${deleted.id}).`);
   }
 
   return (
     <>
-      { errors && errors.length >= 0 &&
-        <div style={{border: '1px solid red'}}>
-          <ul>
-            { errors?.map((error, idx) => {
-              return (<li key={idx}>{error.message}</li>)
-            })
-            }
-          </ul>
-        </div>
+      { error &&
+        <div style={{border: '1px solid red'}}>{error.message}</div>
       }
       { info &&
         <div style={{border: '1px solid blue'}}>{info}</div>
       }
-      <h2>Libraries</h2>
-      <LibraryAdd onAdd={loadLibraries} />
-      { isLoading &&
+      <h2>Libraries <button onClick={() => {refetch()}}>Refresh</button></h2>
+      <LibraryAdd onAdd={ () => {} } />
+      { status === 'loading' &&
         <p>is loading!</p>
       }
-      { !isLoading && (!libraries || libraries.length === 0) &&
+      { status !== 'success' && libraries?.length === 0 &&
         <p>No libraries available.</p>
       }
-      { !isLoading &&
+      { status === 'success' && libraries && libraries.length > 0 &&
         <ul>
-          { libraries.sort((a, b) => {
+          { libraries?.sort((a, b) => {
             if (a.name?.toLocaleLowerCase() < b.name?.toLocaleLowerCase() ) return -1;
             if (a.name?.toLocaleLowerCase() > b.name?.toLocaleLowerCase() ) return 1;
 
@@ -80,7 +52,7 @@ export const Libraries = () => {
                 <Link to={generatePath(libraryIdPath, { libraryId: library.id })}>
                   {library.name} ({library.username})
                 </Link>
-                <button onClick={() => { deleteLibraryHandler(library.id) }}>Delete</button>
+                <button onClick={ () => { deleteLibraryHandler(library) } }>Delete</button>
               </li>
             )
           })}

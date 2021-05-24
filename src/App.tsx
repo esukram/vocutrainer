@@ -3,6 +3,9 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
 import {
   onAuthUIStateChange,
   AuthState,
@@ -20,6 +23,14 @@ import Amplify from "@aws-amplify/core";
 import awsExports from "./aws-exports";
 import Login from './components/Login';
 Amplify.configure(awsExports);
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity
+    }
+  }
+});
 
 const App = () => {
   const [authState, setAuthState] = useState<AuthState>();
@@ -48,22 +59,25 @@ const App = () => {
   }, [authState]);
 
   return authState === AuthState.SignedIn && user ? (
-    <div className="App">
-      <Header username={user.username!}></Header>
-      <main>
-        <Switch>
-          <Route path={libraryIdPath}>
-            <Library />
-          </Route>
-          <Route exact path="/libraries">
-            <Libraries />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </main>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Header username={user.username!}></Header>
+        <main>
+          <Switch>
+            <Route path={libraryIdPath}>
+              <Library />
+            </Route>
+            <Route exact path="/libraries">
+              <Libraries />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </main>
+      </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   ) : (
     // <AmplifyAuthenticator />
     <Login />

@@ -6,7 +6,7 @@ import {
   FormikErrors
 } from 'formik';
 
-import { addLibrary } from "../graphql";
+import { useCreateLibraryMutation } from "../graphql/dao";
 
 export interface LibraryAddProps {
   onAdd: () => void
@@ -17,13 +17,15 @@ type Library = {
 
 export const LibraryAdd = ({onAdd}: LibraryAddProps) => {
   const initialValues: Library = { name: '' };
+  const createLibrary = useCreateLibraryMutation();
 
   const onSubmit = async(library: Library, helpers: FormikHelpers<Library>) => {
     try {
-      await addLibrary(library.name);
+      await createLibrary.mutateAsync({name: library.name})
+      // await addLibrary(library.name);
       helpers.resetForm();
       // calling refresh of parent
-      onAdd();
+      //onAdd();
     } catch (err) {
       // TODO: Add error display
       console.log("Adding failed: ", err);
