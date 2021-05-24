@@ -79,7 +79,6 @@ export const useCreateLibraryMutation = () => {
     },
     {
       onSuccess: (data) => {
-        // brute force: queryClient.invalidateQueries('libraries')
         queryClient.setQueryData<Library[]>("libraries", (libraries) => [
           ...(libraries || []),
           data,

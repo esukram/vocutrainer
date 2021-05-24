@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Auth } from "@aws-amplify/auth";
 
-const Login = () => {
+export const Login = () => {
   const [username, setUsetname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>();

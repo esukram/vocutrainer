@@ -6,7 +6,7 @@ export interface SubscriptionValue<T> {
 }
 
 async function callGraphQL<T, V>(
-  query: any,
+  query: string,
   options?: V
 ): Promise<GraphQLResult<T>> {
   return (await API.graphql(
@@ -15,7 +15,7 @@ async function callGraphQL<T, V>(
 }
 
 export function subscribeGraphQL<T>(
-  subscription: any,
+  subscription: string,
   callback: (value: T) => void
 ) {
   //@ts-ignore

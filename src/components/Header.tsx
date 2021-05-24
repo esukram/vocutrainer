@@ -1,15 +1,14 @@
 import { Navigation, UserInfo } from "./";
 
 export interface HeaderProps {
-  username: string;
   children?: React.ReactNode;
 }
 
-export const Header = ({ children, username }: HeaderProps): JSX.Element => {
+export const Header = ({ children }: HeaderProps): JSX.Element => {
   return (
     <header>
       <Navigation />
-      <UserInfo username={username} />
+      <UserInfo />
       {children}
     </header>
   );

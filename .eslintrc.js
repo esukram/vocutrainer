@@ -36,5 +36,11 @@ module.exports = {
         "@typescript-eslint/ban-ts-comment": "off",
       },
     },
+    {
+      files: ["types/index.d.ts"],
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off",
+      },
+    },
   ],
 };

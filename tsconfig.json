@@ -15,7 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "importsNotUsedAsValues": "error",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@api/*": ["api/*"]
+    }
   },
   "include": ["./src", "./vite-plugins"],
   "files": ["types/index.d.ts"]
