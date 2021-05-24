@@ -7,13 +7,15 @@ import type {
   DeleteLibraryMutationVariables,
   ListLibrarysQuery,
   ListLibrarysQueryVariables,
-} from "./API";
-import { listLibrarys } from "./queries";
-import { createLibrary, deleteLibrary as deleteLibMutation } from "./mutations";
+} from "./generated/API";
+import { listLibrarys } from "./generated/queries";
+import {
+  createLibrary,
+  deleteLibrary as deleteLibMutation,
+} from "./generated/mutations";
 
 import callGraphQL from "./graphql-api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 
 export const addLibrary = async (libraryName: string) => {
   const created = await callGraphQL<

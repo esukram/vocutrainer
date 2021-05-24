@@ -1,5 +1,8 @@
 // convenience wrapper for DTOs
-import type { Library as LibraryGen, Dictionary as DictionaryGen } from "./API";
+import type {
+  Library as LibraryGen,
+  Dictionary as DictionaryGen,
+} from "./generated/API";
 
 // make fields non-empty
 export type Library = Required<Omit<LibraryGen, "__typename">>;
