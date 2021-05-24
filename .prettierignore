@@ -1,0 +1,7 @@
+.github
+.vscode
+amplify
+build
+dist
+node_modules
+src/aws-exports.js

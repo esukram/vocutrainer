@@ -1,35 +1,31 @@
-import './App.css';
+import "./App.css";
 
-import { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
 
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import {
   onAuthUIStateChange,
   AuthState,
-  CognitoUserInterface
- } from "@aws-amplify/ui-components";
+  CognitoUserInterface,
+} from "@aws-amplify/ui-components";
 import { Auth } from "@aws-amplify/auth";
 
-import {
-  Header,
-  Home,
-  Libraries, libraryIdPath, Library
-} from './components';
+import { Header, Home, Libraries, libraryIdPath, Library } from "./components";
 
 import Amplify from "@aws-amplify/core";
 import awsExports from "./aws-exports";
-import Login from './components/Login';
+import Login from "./components/Login";
 Amplify.configure(awsExports);
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity
-    }
-  }
+      staleTime: Infinity,
+    },
+  },
 });
 
 const App = () => {
@@ -37,15 +33,16 @@ const App = () => {
   const [user, setUser] = useState<CognitoUserInterface | undefined>();
 
   useEffect(() => {
-
     // load data in case of page reload
     if (authState === undefined) {
-      Auth.currentAuthenticatedUser().then(authData => {
-        setAuthState(AuthState.SignedIn);
-        setUser(authData);
-      }).catch(reason => {
-        // user not logged in
-      });
+      Auth.currentAuthenticatedUser()
+        .then((authData) => {
+          setAuthState(AuthState.SignedIn);
+          setUser(authData);
+        })
+        .catch((reason) => {
+          // user not logged in
+        });
     }
 
     // returns Hub unregister function

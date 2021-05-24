@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import { defineConfig } from "vite";
+import reactRefresh from "@vitejs/plugin-react-refresh";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,13 +15,13 @@ export default defineConfig({
       transformIndexHtml(code) {
         code += `<script>window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {};</script>`;
         return code;
-      }
-    }
+      },
+    },
   ],
   resolve: {
     alias: {
-      "./runtimeConfig": "./runtimeConfig.browser"
-    }
+      "./runtimeConfig": "./runtimeConfig.browser",
+    },
   },
   esbuild: {
     // https://github.com/evanw/esbuild/issues/334
@@ -31,10 +31,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          aws_amplify: ['aws-amplify'],
-        }
-      }
-    }
-  }
-
-})
+          aws_amplify: ["aws-amplify"],
+        },
+      },
+    },
+  },
+});

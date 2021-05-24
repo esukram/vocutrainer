@@ -4,18 +4,18 @@ export interface UserInfoProps {
   username: string;
 }
 
-export const UserInfo = ({username}: UserInfoProps): JSX.Element => {
+export const UserInfo = ({ username }: UserInfoProps): JSX.Element => {
   const signOut = async () => {
     await Auth.signOut();
     window.location.reload();
-  }
+  };
 
   return (
     <div>
+      <div>Hello: {username}</div>
       <div>
-        Hello: {username}
+        <button onClick={signOut}>Sign Out</button>
       </div>
-      <div><button onClick={signOut}>Sign Out</button></div>
     </div>
   );
-}
+};

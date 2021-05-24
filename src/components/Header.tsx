@@ -1,12 +1,11 @@
-import { Navigation, UserInfo } from './';
+import { Navigation, UserInfo } from "./";
 
 export interface HeaderProps {
   username: string;
   children?: React.ReactNode;
 }
 
-export const Header = ({children, username}: HeaderProps): JSX.Element => {
-
+export const Header = ({ children, username }: HeaderProps): JSX.Element => {
   return (
     <header>
       <Navigation />
@@ -14,4 +13,4 @@ export const Header = ({children, username}: HeaderProps): JSX.Element => {
       {children}
     </header>
   );
-}
+};

@@ -6,7 +6,10 @@ export const Home = () => {
     <>
       <h1>Home</h1>
       <p>Welcome to the Vocabulary Trainer!</p>
-      <p>Get started by selecting one of your <Link to={librariesPath}>libraries</Link>.</p>
+      <p>
+        Get started by selecting one of your{" "}
+        <Link to={librariesPath}>libraries</Link>.
+      </p>
     </>
   );
-}
+};
