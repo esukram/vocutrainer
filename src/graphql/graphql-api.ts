@@ -1,11 +1,6 @@
 import { API, graphqlOperation } from "@aws-amplify/api";
 import type { GraphQLResult } from "@aws-amplify/api";
 
-export interface GraphQLOptions {
-  input?: object;
-  variables?: object;
-}
-
 export interface SubscriptionValue<T> {
   value: { data: T };
 }

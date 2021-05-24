@@ -9,7 +9,7 @@ type Library = {
   name: string;
 };
 
-export const LibraryAdd = ({ onAdd }: LibraryAddProps) => {
+export const LibraryAdd = () => {
   const initialValues: Library = { name: "" };
   const createLibrary = useCreateLibraryMutation();
 

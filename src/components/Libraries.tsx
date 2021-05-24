@@ -35,7 +35,7 @@ export const Libraries = () => {
           Refresh
         </button>
       </h2>
-      <LibraryAdd onAdd={() => {}} />
+      <LibraryAdd />
       {status === "loading" && <p>is loading!</p>}
       {status !== "success" && libraries?.length === 0 && (
         <p>No libraries available.</p>
@@ -51,7 +51,7 @@ export const Libraries = () => {
 
               return 0;
             })
-            .map((library, _) => {
+            .map((library) => {
               return (
                 <li key={library.id}>
                   <Link
