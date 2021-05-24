@@ -51,14 +51,14 @@ export const LibraryAdd = ({ onAdd }: LibraryAddProps) => {
             <div>
               <label>
                 Name
-                <Field name="name" placeholder="Library Name" />
+                <Field name='name' placeholder='Library Name' />
               </label>
               {errors.name && touched.name && (
                 <div style={{ color: "red" }}>{errors.name}</div>
               )}
             </div>
 
-            <button type="submit" disabled={isSubmitting || isValidating}>
+            <button type='submit' disabled={isSubmitting || isValidating}>
               Add Entry
             </button>
           </fieldset>

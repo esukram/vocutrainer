@@ -31,8 +31,8 @@ const Login = () => {
           <label>
             Username
             <input
-              name="username"
-              placeholder="Username"
+              name='username'
+              placeholder='Username'
               value={username}
               onChange={(e) => {
                 setUsetname(e.target.value);
@@ -44,10 +44,10 @@ const Login = () => {
           <label>
             Password
             <input
-              name="password"
-              placeholder="Password"
+              name='password'
+              placeholder='Password'
               value={password}
-              type="password"
+              type='password'
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -55,7 +55,7 @@ const Login = () => {
           </label>
         </div>
         <div>
-          <input type="submit" value="Log in" />
+          <input type='submit' value='Log in' />
         </div>
       </form>
     </>

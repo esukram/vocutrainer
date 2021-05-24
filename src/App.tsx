@@ -57,17 +57,17 @@ const App = () => {
 
   return authState === AuthState.SignedIn && user ? (
     <QueryClientProvider client={queryClient}>
-      <div className="App">
+      <div className='App'>
         <Header username={user.username!}></Header>
         <main>
           <Switch>
             <Route path={libraryIdPath}>
               <Library />
             </Route>
-            <Route exact path="/libraries">
+            <Route exact path='/libraries'>
               <Libraries />
             </Route>
-            <Route exact path="/">
+            <Route exact path='/'>
               <Home />
             </Route>
           </Switch>

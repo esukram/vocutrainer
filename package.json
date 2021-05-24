@@ -30,7 +30,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "format": "prettier --write ."
+    "fmt": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [

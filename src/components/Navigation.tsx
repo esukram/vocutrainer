@@ -5,12 +5,12 @@ export const Navigation = (): JSX.Element => {
     <nav>
       <ul>
         <li>
-          <NavLink exact to="/" activeStyle={{ fontWeight: "bold" }}>
+          <NavLink exact to='/' activeStyle={{ fontWeight: "bold" }}>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink exact to="/libraries" activeStyle={{ fontWeight: "bold" }}>
+          <NavLink exact to='/libraries' activeStyle={{ fontWeight: "bold" }}>
             Libraries
           </NavLink>
         </li>
