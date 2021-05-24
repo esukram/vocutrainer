@@ -10,6 +10,7 @@ frontend:
     preBuild:
       commands:
         - yarn install
+        - yarn verify
     build:
       commands:
         - yarn build

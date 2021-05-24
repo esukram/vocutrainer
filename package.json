@@ -38,7 +38,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "pre-commit": "yarn lint && prettier --loglevel silent --write .",
+    "verify": "yarn lint && prettier --loglevel silent --write .",
     "fmt": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
