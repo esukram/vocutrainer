@@ -28,9 +28,9 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const { data: auth } = useAuthQuery();
+  const { data: { user } = {} } = useAuthQuery();
 
-  return auth?.user ? (
+  return user ? (
     <div className='App'>
       <Header />
       <main>
@@ -49,7 +49,6 @@ const App = () => {
     </div>
   ) : (
     <>
-      <div>{auth?.message}</div>
       <Login />
     </>
   );

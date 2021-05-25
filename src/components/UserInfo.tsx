@@ -7,18 +7,23 @@ export interface UserInfoProps {
 
 export const UserInfo = () => {
   const history = useHistory();
-  const { data: auth } = useAuthQuery();
-  const logout = useAuthLogoutMutation();
+  const { isLoading, data: { user } = {} } = useAuthQuery();
+  const { mutateAsync: logout } = useAuthLogoutMutation();
 
-  const signOut = () => {
-    logout.mutate();
-    history.push("/");
+  const signOut = async () => {
+    logout(null, {
+      onSuccess: () => {
+        history.push("/");
+      },
+    });
   };
+
+  if (isLoading || !user) return <div>Loading</div>;
 
   return (
     <div>
       <div>
-        Hello: <label title={auth?.user?.email}>{auth?.user?.username}</label>
+        Hello: <label title={user.email}>{user.username}</label>
       </div>
       <div>
         <button onClick={signOut}>Sign Out</button>

@@ -29,7 +29,10 @@ export const useAuthQuery = () => {
         };
       }
     },
-    { refetchInterval: Infinity }
+    {
+      // sync state (logout) across browsers
+      refetchInterval: 500,
+    }
   );
 };
 
@@ -59,7 +62,7 @@ export const useAuthLoginMutation = () => {
 export const useAuthLogoutMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<Auth, Error>(
+  return useMutation<Auth, Error, null>(
     queryKey,
     async () => {
       await Auth.signOut();
