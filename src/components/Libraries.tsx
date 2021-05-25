@@ -13,7 +13,13 @@ export const libraryIdPath = "/library/:libraryId";
 
 export const Libraries = () => {
   const [info, setInfo] = useState<string>();
-  const { status, error, data: libraries, refetch } = useListLibrariesQuery();
+  const {
+    status,
+    isLoading,
+    error,
+    data: libraries,
+    refetch,
+  } = useListLibrariesQuery();
   const deleteLibraryMut = useDeleteLibraryMutation();
 
   const deleteLibraryHandler = async (library: Library) => {
@@ -36,11 +42,11 @@ export const Libraries = () => {
         </button>
       </h2>
       <LibraryAdd />
-      {status === "loading" && <p>is loading!</p>}
-      {status !== "success" && libraries?.length === 0 && (
+      {isLoading && <p>is loading!</p>}
+      {!isLoading && (libraries?.length ?? 0) === 0 && (
         <p>No libraries available.</p>
       )}
-      {status === "success" && libraries && libraries.length > 0 && (
+      {status === "success" && (libraries?.length || 0) > 0 && (
         <ul>
           {libraries
             ?.sort((a, b) => {

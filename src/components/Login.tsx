@@ -14,7 +14,6 @@ export const Login = () => {
     event.preventDefault();
     try {
       await login(username, password);
-      window.location.reload();
     } catch (error) {
       setError(error.message);
     } finally {
@@ -62,4 +61,5 @@ export const Login = () => {
   );
 };
 
+// rework with https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#re-send-confirmation-code
 export default Login;

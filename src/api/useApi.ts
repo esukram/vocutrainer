@@ -17,26 +17,30 @@ export type User = {
 };
 
 export const useAuthQuery = () => {
-  return useQuery<Auth, Error>(queryKey, async () => {
-    console.log("Check auth state");
-
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      console.log("Authenticated User", user);
-      return {
-        state: AuthState.SignedIn,
-        user: {
-          username: user.username,
-          email: user.attributes?.email,
-        },
-      } as Auth;
-    } catch (error) {
-      return {
-        state: AuthState.SignedOut,
-        message: error,
-      } as Auth;
-    }
-  });
+  return useQuery<Auth, Error>(
+    queryKey,
+    async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        // console.log("Authenticated User", user);
+        return {
+          state: AuthState.SignedIn,
+          user: {
+            username: user.username,
+            email: user.attributes?.email,
+            groups:
+              user.signInUserSession?.idToken?.payload["cognito:groups"] || [],
+          },
+        };
+      } catch (error) {
+        return {
+          state: AuthState.SignedOut,
+          message: error,
+        };
+      }
+    },
+    { refetchInterval: Infinity }
+  );
 };
 
 export const useAuthLogoutMutation = () => {

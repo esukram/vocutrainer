@@ -64,5 +64,4 @@ const QueryClientApp = () => {
   );
 };
 
-// rework with https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#re-send-confirmation-code
 export default QueryClientApp;

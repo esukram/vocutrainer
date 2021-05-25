@@ -62,9 +62,12 @@ export const useListLibrariesQuery = () => {
       );
     } catch (error) {
       let message = "Query failed: ";
-      error.errors.forEach((error: Error) => {
-        message += error.message;
-      });
+      if (error?.message) message += error.message;
+
+      error.errors &&
+        error.errors.forEach((error: Error) => {
+          message += error.message;
+        });
       throw new Error(message);
     }
   });
