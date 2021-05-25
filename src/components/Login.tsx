@@ -1,22 +1,16 @@
 import { FormEvent, useState } from "react";
-import { Auth } from "@aws-amplify/auth";
+import { useAuthLoginMutation } from "@api/useAuth";
 
 export const Login = () => {
   const [username, setUsetname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string>();
-
-  const login = async (username: string, password: string) => {
-    return await Auth.signIn(username, password);
-  };
+  const { error, mutateAsync: login } = useAuthLoginMutation();
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await login(username, password);
+      await login({ username: username, password: password });
     } catch (error) {
-      setError(error.message);
-    } finally {
       setPassword("");
     }
   };
@@ -24,7 +18,7 @@ export const Login = () => {
   return (
     <>
       <h1>Login</h1>
-      {error && <div style={{ color: "red" }}>{error}</div>}
+      {error && <div style={{ color: "red" }}>{error.message}</div>}
       <form onSubmit={handleLogin}>
         <div>
           <label>

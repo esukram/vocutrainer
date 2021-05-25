@@ -15,23 +15,13 @@ export type User = {
   subject?: string;
   groups?: string[];
 };
-
 export const useAuthQuery = () => {
   return useQuery<Auth, Error>(
     queryKey,
     async () => {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        // console.log("Authenticated User", user);
-        return {
-          state: AuthState.SignedIn,
-          user: {
-            username: user.username,
-            email: user.attributes?.email,
-            groups:
-              user.signInUserSession?.idToken?.payload["cognito:groups"] || [],
-          },
-        };
+        return transformUser2Auth(user);
       } catch (error) {
         return {
           state: AuthState.SignedOut,
@@ -43,13 +33,35 @@ export const useAuthQuery = () => {
   );
 };
 
+export type UserLogin = {
+  username: string;
+  password: string;
+};
+export const useAuthLoginMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<Auth, Error, UserLogin>(
+    queryKey,
+    async (userLogin: UserLogin) => {
+      return transformUser2Auth(
+        await Auth.signIn(userLogin.username, userLogin.password)
+      );
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries();
+        queryClient.clear();
+      },
+    }
+  );
+};
+
 export const useAuthLogoutMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation<Auth, Error>(
     queryKey,
     async () => {
-      console.log("Calling logout");
       await Auth.signOut();
       return { state: AuthState.SignedOut } as Auth;
     },
@@ -61,3 +73,13 @@ export const useAuthLogoutMutation = () => {
     }
   );
 };
+function transformUser2Auth(user: any): Auth | PromiseLike<Auth> {
+  return {
+    state: AuthState.SignedIn,
+    user: {
+      username: user.username,
+      email: user.attributes?.email,
+      groups: user.signInUserSession?.idToken?.payload["cognito:groups"] || [],
+    },
+  };
+}
