@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { useAuthQuery, useAuthLogoutMutation } from "@api/useApi";
+import { useAuthQuery, useAuthLogoutMutation } from "@api/useAuth";
 
 export interface UserInfoProps {
   username: string;

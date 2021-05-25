@@ -3,7 +3,7 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { useAuthQuery } from "./api/useApi";
+import { useAuthQuery } from "./api/useAuth";
 
 import {
   Header,
